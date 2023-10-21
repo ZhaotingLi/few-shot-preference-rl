@@ -6,7 +6,8 @@ Examples are as follows:
 """
 from typing import Any, Dict, List, Tuple
 
-import gym
+import gymnasium as gym
+# import gym
 import torch
 
 import research

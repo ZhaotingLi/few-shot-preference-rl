@@ -2,7 +2,8 @@ import math
 import os
 from typing import Dict, List
 
-import gym
+# import gym
+import gymnasium as gym
 import numpy as np
 import torch
 

@@ -2,7 +2,8 @@ import os
 import subprocess
 from typing import Dict, Optional, Union
 
-import gym
+# import gym
+import gymnasium as gym
 import torch
 
 import research
@@ -41,6 +42,7 @@ def get_model(config, device: Union[str, torch.device] = "auto") -> Algorithm:
         env = research.envs.DummyVecEnv(config['env'], config['env_kwargs'], config['wrapper'],
                                         config['wrapper_kwargs'], **config['vec_kwargs'])
     """
+    print("config[env]: ", config["env"])
     env = (
         None
         if config["env"] is None

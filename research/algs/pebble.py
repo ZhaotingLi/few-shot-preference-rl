@@ -4,7 +4,8 @@ import os
 import tempfile
 from typing import Any, Dict, Optional, Tuple, Type, Union
 
-import gym
+# import gym
+import gymnasium as gym
 import imageio
 import numpy as np
 import torch
@@ -80,7 +81,7 @@ class PEBBLE(Algorithm):
         reset_reward_net: bool = False,
         reward_shift: float = 0,
         reward_scale: float = 1,
-        human_feedback: bool = False,
+        human_feedback: bool = True,
         num_uniform_feedback: int = 0,
         # Unsupervised Parameters
         unsup_steps: int = 0,
@@ -312,6 +313,8 @@ class PEBBLE(Algorithm):
         batch_size = batch["reward_1"].shape[0]
         print("Rendering images.")
         for i in range(batch_size):
+            print("batch", i, "of", batch_size, "total")
+            # print("batch property: ", batch)
             state_1, state_2 = batch["state_1"][i], batch["state_2"][i]  # Shape (S, D)
             segment_1, segment_2 = self._render_segment(state_1), self._render_segment(state_2)
             # Display the overall plot
@@ -324,6 +327,7 @@ class PEBBLE(Algorithm):
             plt.show()
             inp = None
             while inp not in ("1", "2", "s", "d"):
+                # The user's input is captured through the input() function and stored in the variable inp
                 inp = input("Segment 1, 2, skip (s), or done (d): ")
             if inp == "1":
                 labels.append(0)
@@ -356,6 +360,7 @@ class PEBBLE(Algorithm):
             reward_1=returns[:batch_size],
             reward_2=returns[batch_size:],
         )
+        print("get queries, state in batch?: ", "state" in batch)
         if "state" in batch:
             segment_batch["state_1"] = batch["state"][:batch_size]
             segment_batch["state_2"] = batch["state"][batch_size:]
@@ -629,7 +634,7 @@ class PEBBLE(Algorithm):
             states = states[::factor][:max_imgs]
         for state in states:
             self.eval_env.set_state(state)
-            img = self.eval_env.render(mode="rgb_array", height=height, width=width)
+            img = self.eval_env.render_(mode="rgb_array", height=height, width=width)
             imgs.append(img)
         # Concatenate the images on the last axis
         imgs = np.concatenate(imgs, axis=1)

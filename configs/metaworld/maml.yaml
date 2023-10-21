@@ -29,26 +29,26 @@ network_kwargs:
     ensemble_size: 3
     hidden_layers: [256, 256, 256]
     act: ["import", "torch.nn.functional", "leaky_relu"]
-    output_act: ["import", "torch.nn.functional", "tanh"]
+    output_act: ["import", "torch", "tanh"]
 
 batch_size: 4
 collate_fn: ["import", "research.algs.maml", "collate"]
 checkpoint: null
 seed: null
 
-env: mw_sweep-into-v2
+env: mw_door-open-v2
 
 dataset: MultiTaskOracleFeedbackDataset
 dataset_kwargs:
-  paths: ../datasets/fs_test/ml10/
+  paths: /home/lzt/TUD_Projects/few-shot-preference-rl/datasets/mw/
   discount: 0.99
   nstep: 1
-  batch_size: 64
+  batch_size: 32
   capacity: 6000
   segment_size: 25
 validation_dataset_kwargs:
-  paths: ../datasets/fs_test/ml10_valid
-  capacity: 5000
+  paths: /home/lzt/TUD_Projects/few-shot-preference-rl/datasets/mw_valid/
+  capacity: 1000
 
 processor: null
 

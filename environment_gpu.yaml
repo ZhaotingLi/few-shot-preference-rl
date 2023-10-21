@@ -1,8 +1,4 @@
 name: few-shot-pref-rl
-channels:
-  - pytorch
-  - nvidia
-  - defaults
 dependencies:
   - python=3.8 # For polymetis compatibility
 

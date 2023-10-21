@@ -89,3 +89,21 @@ python tools/run_slurm.py --partition <partition> --cpus 2 --mem 8G --job-name m
 ```
 
 If you just want to run our method, you can edit the `pebble.yaml` config file by setting the algorithm to `FewShotPEBBLE` and the checkpoint path to the output of MAML. The feedback schedules are specified in the sweep files, and those can also be carried over into the individual configs.
+
+
+### Reproducing by Zhaoting
+1. Generate the dataset
+```
+python tools/run_local.py --cpus 8 --gpus 1 --entry-point scripts/metaworld/collect_policy_dataset.py --arguments benchmark=ml10 tasks-per-env=25 cross-env-ep=10 within-env-ep=25 expert-ep=15 random-ep=2 epsilon=0.1 num-workers=10 noise-type=gaussian path=datasets/mw
+```
+2. Pretrain the reward function
+```
+python scripts/train.py --config configs/metaworld/maml.yaml --path saved_mw_01
+```
+
+
+3. Run the experiments
+```
+python tools/run_local.py --cpus 2 --gpus 1 --arguments config=configs/metaworld/button_press_sweep.json path=saved_run_exp/
+```
+

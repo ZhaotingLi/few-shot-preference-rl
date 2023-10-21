@@ -12,8 +12,8 @@ if __name__ == "__main__":
     parser = utils.get_parser()
     parser.add_argument("--cpus", "-c", type=int, default=None, help="Number of CPUs per job instance")
     parser.add_argument("--gpus", "-g", type=int, default=None, help="Number of GPUs per job instance")
-    parser.add_argument("--valid-gpus", type=int, nargs="+", default=None, help="Specifies which GPUS to use.")
-    parser.add_argument("--valid-cpus", type=str, nargs="+", default=None)
+    parser.add_argument("--valid-gpus", type=int, nargs="+", default=[0], help="Specifies which GPUS to use.")
+    parser.add_argument("--valid-cpus", type=str, nargs="+", default=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9], help="Specifies which CPUs to use.")
     parser.add_argument(
         "--use-taskset", action="store_true", default=False, help="Whether or not to CPU load balance with taskset"
     )
@@ -80,7 +80,7 @@ if __name__ == "__main__":
                         command_list.append(str(arg_value))
                     if job_gpus is not None:
                         env = os.environ
-                        env["CUDA_VISIBLE_DEVICES"] = ",".join(job_gpus)
+                        env["CUDA_VISIBLE_DEVICES"] = ",".join(map(str, job_gpus))
                     else:
                         env = None
 

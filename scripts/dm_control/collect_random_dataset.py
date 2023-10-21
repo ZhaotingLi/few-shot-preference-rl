@@ -1,8 +1,8 @@
 import argparse
 import os
 from typing import Tuple
-
-import gym
+import gymnasium as gym
+# import gym
 import numpy as np
 
 import research  # to register the environments

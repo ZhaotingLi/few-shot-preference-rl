@@ -6,7 +6,8 @@ from abc import ABC, abstractmethod
 from collections import defaultdict
 from typing import Any, Dict, Optional, Type, Union
 
-import gym
+# import gym
+import gymnasium as gym
 import numpy as np
 import torch
 

@@ -38,6 +38,9 @@ share/python-wheels/
 *.egg
 MANIFEST
 
+datasets/
+saved_run_exp/
+saved_mv_01/
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.

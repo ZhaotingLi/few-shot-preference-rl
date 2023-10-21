@@ -6,7 +6,8 @@ import shutil
 import tempfile
 from typing import Any, Dict, Optional, Union
 
-import gym
+# import gym
+import gymnasium as gym
 import numpy as np
 import torch
 
@@ -129,7 +130,7 @@ class ReplayBuffer(torch.utils.data.IterableDataset):
         cleanup: bool = True,
         fetch_every: int = 1000,
         batch_size: Optional[int] = None,
-        sample_multiplier: float = 1.5,
+        sample_multiplier: float = 5,
         stack: int = 1,
         pad: int = 0,
         next_obs: bool = True,

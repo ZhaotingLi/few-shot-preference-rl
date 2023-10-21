@@ -1,7 +1,8 @@
 from functools import partial
 from typing import Optional, Union
 
-import gym
+import gymnasium as gym
+# import gym
 import torch
 
 import research

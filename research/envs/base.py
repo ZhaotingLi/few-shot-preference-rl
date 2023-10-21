@@ -1,4 +1,6 @@
-import gym
+# import gym
+
+import gymnasium as gym
 import numpy as np
 
 # unused imports for todo on parallel envs

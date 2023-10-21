@@ -7,6 +7,7 @@ import subprocess
 from typing import List, Tuple
 
 import gym
+# import gymnasium as gym
 import metaworld
 import numpy as np
 from metaworld import Task, policies
@@ -23,8 +24,9 @@ def collect_episode(
     epsilon: float = 0.0,
     noise_type: str = "gaussian",
 ):
-    obs = dest_env.reset()
-    src_obs = src_env.reset()
+    obs, info = dest_env.reset()
+    src_obs, src_info = src_env.reset()
+    # print("obs: ", obs)
     dataset.add(obs)
     episode_length = 0
     done = False
@@ -35,9 +37,11 @@ def collect_episode(
         elif noise_type == "uniform":
             if np.random.random() < epsilon:
                 action = src_env.action_space.sample()
+        # print("action: ", action)
 
-        obs, reward, done, info = dest_env.step(action)
-        src_obs, _, _, src_info = src_env.step(action)
+        obs, reward, terminated, truncated, info = dest_env.step(action)
+        done = terminated or truncated
+        src_obs, _, _, _, src_info = src_env.step(action)
         episode_length += 1
         # TODO: Set done to true if the other env is done.
         if "discount" in info:
@@ -56,13 +60,14 @@ def collect_episode(
 
 
 def collect_random_episode(env: gym.Env, dataset: ReplayBuffer):
-    obs = env.reset()
+    obs, info = env.reset()
     dataset.add(obs)
     episode_length = 0
     done = False
     while not done:
         action = env.action_space.sample()
-        obs, reward, done, info = env.step(action)
+        obs, reward, terminated, truncated, info = env.step(action)
+        done = terminated or truncated
         episode_length += 1
         if "discount" in info:
             discount = info["discount"]

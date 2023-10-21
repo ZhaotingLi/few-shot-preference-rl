@@ -1,7 +1,8 @@
 import collections
 from typing import Any, Dict
 
-import gym
+import gymnasium as gym
+# import gym
 import numpy as np
 import torch
 
@@ -84,6 +85,6 @@ def eval_policy(env: gym.Env, model, num_ep: int = 10) -> Dict:
             ep_length += 1
 
         if hasattr(env, "get_normalized_score"):
-            metric_tracker.add("score", env.get_normalized_score(ep_reward))
+            metric_tracker.add("score", env.unwrapper.get_normalized_score(ep_reward))
 
     return metric_tracker.export()

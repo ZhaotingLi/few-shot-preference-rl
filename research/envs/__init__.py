@@ -3,8 +3,10 @@ from .base import Empty
 
 # If we want to register environments in gym.
 # These will be loaded when we import the research package.
-from gym.envs import register
+import gymnasium as gym
 
+# from gym.envs import register
+from gymnasium.envs.registration import register
 
 # Register the DM Control environments.
 from dm_control import suite

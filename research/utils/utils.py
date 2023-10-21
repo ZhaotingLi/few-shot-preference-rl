@@ -1,6 +1,6 @@
 from typing import Any, Dict, List, Optional, Tuple, Union
 
-import gym
+import gymnasium as gym
 import numpy as np
 import torch
 
@@ -110,6 +110,10 @@ def get_from_batch(batch: Any, start: Union[int, np.ndarray, torch.Tensor], end:
 
 
 def set_in_batch(batch: Any, value: Any, start: int, end: Optional[int] = None) -> None:
+    # print("set_in_batch")
+    # print("batch shape", batch.shape)
+    # print("value ", value)
+    # print("start  ", start, " end", end)
     if isinstance(batch, dict):
         for k, v in batch.items():
             set_in_batch(v, value[k], start, end=end)
@@ -192,9 +196,18 @@ class PrintNode(torch.nn.Module):
 def np_dataset_alloc(
     space: gym.Space, capacity: int, begin_pad: Tuple[int] = tuple(), end_pad: Tuple[int] = tuple()
 ) -> np.ndarray:
+    # print("Allocating dataset of size:", (capacity,) + begin_pad + space.shape + end_pad)
+    # print("Space:", space)
+    # # print type of space
+    # print(type(space))
+    # print(isinstance(space, gym.spaces.Box))
+    # size of the space AttributeError: 'float' object has no attribute 'shape'
+    
+
     if isinstance(space, gym.spaces.Dict):
         return {k: np_dataset_alloc(v, capacity, begin_pad=begin_pad, end_pad=end_pad) for k, v in space.items()}
     elif isinstance(space, gym.spaces.Box):
+        # print("Allocating box")
         dtype = np.float32 if space.dtype == np.float64 else space.dtype
         return np.empty((capacity,) + begin_pad + space.shape + end_pad, dtype=dtype)
     elif isinstance(space, gym.spaces.Discrete) or isinstance(space, np.int64):

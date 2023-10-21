@@ -29,7 +29,7 @@ network_kwargs:
     ensemble_size: 3
     hidden_layers: [256, 256, 256]
     act: ["import", "torch.nn.functional", "leaky_relu"]
-    output_act: ["import", "torch.nn.functional", "tanh"]
+    output_act: ["import", "torch", "tanh"]
 
 batch_size: 4
 collate_fn: ["import", "research.algs.maml", "collate"]

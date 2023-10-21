@@ -1,7 +1,8 @@
 import collections
 
 import dm_env
-import gym
+# import gym
+import gymnasium as gym
 import numpy as np
 from dm_control import suite
 from dm_control.rl.control import FLAT_OBSERVATION_KEY

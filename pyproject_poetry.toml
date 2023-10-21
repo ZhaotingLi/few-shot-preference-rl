@@ -1,0 +1,55 @@
+[tool.poetry]
+name = "few-shot-pref-rl"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <your.email@example.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+black = "*"
+isort = "*"
+flake8 = "*"
+
+# Conda-forge dependencies
+pre-commit = "*"
+
+# PyTorch dependencies
+#torch = { version = "*", source = "pytorch" }
+#torch = "*"
+#torchvision = "*"
+#cudatoolkit = "*"
+#torchvision = { version = "*", source = "pytorch" }
+#torchtext = "*"
+
+# NP Family
+numpy = "*"
+scipy = "*"
+networkx = "*"
+scikit-image = "*"
+
+# IO
+imageio = "*"
+pillow = "*"
+pyyaml = "*"
+cloudpickle = "*"
+h5py = "*"
+absl-py = "*"
+pyparsing = "*"
+
+# Plotting
+tensorboard = "*"
+pandas = "*"
+matplotlib = "*"
+seaborn = "*"
+
+# Other
+pytest = "*"
+tqdm = "*"
+future = "*"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
